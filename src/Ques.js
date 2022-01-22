@@ -76,23 +76,24 @@ class Ques extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			solution: this.props.solution,
+			solution: localStorage.getItem("sol") || this.props.solution,
 		};
 		this.handleEdit = this.handleEdit.bind(this);
 	}
 
 	handleEdit(value) {
 		this.setState({ solution: value });
+		localStorage.setItem("sol", value);
 	}
 	render() {
 		const props = this.props;
 		const solution = this.state.solution;
 		return (
-			<Style className="Ques">
-				<div className="number">
+			<Style className='Ques'>
+				<div className='number'>
 					Question no. <span>{props.number}</span>
 				</div>
-				<div className="text">{props.problem}</div>
+				<div className='text'>{props.problem}</div>
 				<Routes>
 					<Route
 						exact
@@ -109,14 +110,14 @@ class Ques extends Component {
 							<Form solution={solution} edit={this.handleEdit} />
 						}></Route>
 				</Routes>
-				<div className="links">
-					<Link exact="true" to={`/show/${props.number}`}>
+				<div className='links'>
+					<Link exact='true' to={`/show/${props.number}`}>
 						Explore solution
 					</Link>
-					<Link exact="true" to={`/hide/${props.number}`}>
+					<Link exact='true' to={`/hide/${props.number}`}>
 						Hide solution
 					</Link>
-					<Link exact="true" to={`/edit/${props.number}`}>
+					<Link exact='true' to={`/edit/${props.number}`}>
 						Edit solution
 					</Link>
 				</div>
